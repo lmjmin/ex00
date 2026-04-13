@@ -1,4 +1,5 @@
-
+import 'package:ex00/person.dart';
+import 'package:ex00/user.dart';
 late String dasc; // late : 변수 선언 시 초기값을 나중에 할당할 수 있도록 허용하는 키워드.
 void classes(){
     // print('Hello world: ${ex00.calculate()}!');
@@ -166,3 +167,86 @@ int div(int n1,[int n2 = 1]){
     test3(10,n2:null,tf:false);
     test3(10,n2:'hello');
   }
+
+// 클래스와 객체 부분 
+  void testmain2(){
+  var person = Person();
+  person.name = 'James';
+
+  print('person name: ${person.name}');
+  person.age = 10; // setter로 age 값을 설정 언더바를 지운 age로 접근 해서 값을 지정 하고 언더바 한것은 private로 접근해서 값을 지정 하는것임.
+  print('person age: ${person.age}'); // getter로 age 값을 가져옴, 여기서 _age가 null 이면 0을 반환 하라는 소리임.
+
+  var person2 = Person.name('James');
+  print(person2.name);
+
+  Person person3 = Person.init('James', 30);
+  print('person3 name: ${person3.name}');
+  print('person3 age: ${person3.age}');
+
+  var user = User(username: 'aaa');
+  var user2 =User(username:'bbb',age:23);
+
+  print(user.toString());
+  
+  print(user.username);
+  print(user.age);
+  print(user2.age);
+  }
+
+  void testmain3(){
+      
+    Set<int> set1 = {};
+    set1.add(1);
+    set1.add(2);
+    set1.add(2);
+    set1.add(3);
+
+    print(set1); 
+
+    var set2 = {'a', 'b', 'c'};
+    set2.add('d');// {a, b, c, d}
+    set2.addAll({'e', 'f'}); // {a, b, c, d, e, f}
+
+    set2.remove('a'); // {b, c, d, e, f}
+    set2.removeAll({'b', 'c'}); // {d, e, f}
+    
+    set2.contains('a'); // false
+    set2.contains('e');// true
+    set2.containsAll({'e', 'f'}); // true
+    set2.clear(); // {}
+
+    var set3 = {1, 2, 3};
+    var set4 = {2, 3, 4};
+
+    var union = set3.union(set4); // {1, 2, 3, 4} union : 합집합
+    print(union);
+    var intersection = set3.intersection(set4); // {2, 3} intersection : 교집합
+    print(intersection);
+    var difference = set3.difference(set4); // {1} difference : 차집합
+    print(difference);
+    
+    set3.length; // 3
+
+    for(var item in set3){ // set3의 각 요소를 item 변수에 할당하여 반복하는 for-in 루프. set3의 요소인 1, 2, 3이 각각 item에 할당되어 반복문이 실행됨.
+      print(item);
+    }
+
+    set4.forEach((item) => print(item)); // forEach 메서드를 사용하여 set4의 각 요소를 출력. {2, 3, 4}의 요소가 각각 출력됨.
+
+
+    List<int> nums = [1,2,2,3,4,4,5];
+    var uniqueNums = nums.toSet(); // toSet(): List를 Set으로 변환 하여 중복되 요소를 제뢰하여 Set을 반환함.
+    print(uniqueNums); // {1, 2, 3, 4, 5} 중복된 요소가 제거된 Set이 출력됨.
+
+    var setA ={1,2,3};
+    var setB ={3,2,1};
+    var setC ={1,2,3};
+    print(setA == setC); //false, Set 클래스에서 == 연산자는 객체의 동일성을 비교하기 때문에 setA와 setC는 서로 다른 객체이므로 false가 나옴.
+    print(setEqual(setA, setB)); // true, 순서가 중요한게 아니라 요소의 존재 여부를 비교해서 true가 나옴.
+    
+  }
+
+  bool setEqual<T>(Set<T> a, Set<T> b){ //set의 요소가 같은지 비교하는 함수
+  return a.length == b.length && a.containsAll(b); // a와 b의 길이가 같고 a가 b의 모든 요소를 포함하는지 확인하여 두 Set이 동일한 요소를 가지고 있는지 판단함.
+}

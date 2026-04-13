@@ -1,32 +1,59 @@
 import 'dart:math';
 import 'dart:io';
-import 'package:ex00/person.dart';
 import 'package:ex00/ex00.dart' as ex00;
-import 'package:ex00/user.dart';
+
 
 void main(List<String> arguments){
-  var person = Person();
-  person.name = 'James';
+  var map1 = Map();
+  var map2 = Map<int, String>();
+  Map<String, int> map3 = Map();
 
-  print('person name: ${person.name}');
-  person.age = 10; // setter로 age 값을 설정 언더바를 지운 age로 접근 해서 값을 지정 하고 언더바 한것은 private로 접근해서 값을 지정 하는것임.
-  print('person age: ${person.age}'); // getter로 age 값을 가져옴, 여기서 _age가 null 이면 0을 반환 하라는 소리임.
+  var person = {
+    'name' : 'James',
+    'age' : 10,
+    'city' : 'Busan'
+  };
+  print(person['name']);
+  print(person['gender']); // 존재하지 않는 키에 접근하면 null이 반환됨.
 
-  var person2 = Person.name('James');
-  print(person2.name);
+  person['name'] = 'James';
+  print(person['name']); 
+  // person['gender'] = 'man'; // 존재하지 않는 키에 값을 할당하면 새로운 키-값 쌍이 추가됨.
+  // print(person['gender']);
 
-  Person person3 = Person.init('James', 30);
-  print('person3 name: ${person3.name}');
-  print('person3 age: ${person3.age}');
+  var value = person['xxx'] ?? 'default'; // null 병합 연산자(??) : 왼쪽 피연산자가 null이면 오른쪽 피연산자를 반환, 그렇지 않으면 왼쪽 피연산자를 반환.
+  print(value); // 'default'가 출력됨.
 
-  var user = User(username: 'aaa');
-  var user2 =User(username:'bbb',age:23);
+  person.addAll({
+    'phone': '010-1234-5678',
+    'hobby': 'reading'
+  });
+  print(person);
 
-  print(user.toString());
-  
-  print(user.username);
-  print(user.age);
-  print(user2.age);
+  person.remove('phone');
+  print(person['phone']); // null이 출력됨.
 
+
+  print(person.containsKey('name')); // true, 'name' 키가 존재하므로 true가 나옴.
+  print(person.containsValue('woman')); // false,
+
+  person.forEach((key, value){
+    print('key: $key, value: $value');
+  }); 
+
+  for(var key in person.keys){
+    print(key);
+  }
+
+  for(var value in person.values){
+    print(value);
+  }
+
+  var keylist = person.keys.toList(); // Map의 키를 List로 변환
+  print(keylist);
+
+  var valuelist = person.values.toList(); // Map의 값을 List로 변환
+  print(valuelist);
 }
+
 
